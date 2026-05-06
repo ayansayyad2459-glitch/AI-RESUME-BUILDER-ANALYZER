@@ -12,16 +12,10 @@ connectDB();
 
 // Security middleware
 app.use(helmet());
-const allowedOrigins = [
-  process.env.CLIENT_URL,
-  'https://ai-resume-builder-eukeqkyun-ayansayyad2459-glitchs-projects.vercel.app',
-  'http://localhost:5173',
-].filter(Boolean);
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (mobile apps, curl, etc.)
     if (!origin) return callback(null, true);
-    if (allowedOrigins.some(allowed => origin.startsWith(allowed.replace(/\/$/, '')))) {
+    if (origin.includes('localhost') || origin.endsWith('.vercel.app') || origin.endsWith('.onrender.com')) {
       return callback(null, true);
     }
     callback(new Error('Not allowed by CORS'));
