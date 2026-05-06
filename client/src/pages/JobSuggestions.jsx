@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios';
 import { toast } from 'react-toastify';
 import { ExternalLink, Search, Briefcase } from 'lucide-react';
 
@@ -20,7 +20,7 @@ export default function JobSuggestions() {
   const loadResumeJobs = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get(`/api/resume/${resumeId}`);
+      const { data } = await api.get(`/api/resume/${resumeId}`);
       setJobs(data.jobSuggestions || []);
     } catch (err) {
       toast.error('Failed to load job suggestions');
@@ -32,7 +32,7 @@ export default function JobSuggestions() {
     if (!searchQuery.trim()) return toast.error('Enter a job title to search');
     setLoading(true);
     try {
-      const { data } = await axios.get(`/api/jobs/search?q=${searchQuery}&location=${searchLocation}`);
+      const { data } = await api.get(`/api/jobs/search?q=${searchQuery}&location=${searchLocation}`);
       setSearchResults(data);
     } catch (err) {
       toast.error('Search failed');

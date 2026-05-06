@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../api/axios';
 import { toast } from 'react-toastify';
 import { jsPDF } from 'jspdf';
 import { User, Briefcase, GraduationCap, Wrench, FolderOpen, Award, Download, Save, Plus, X } from 'lucide-react';
@@ -39,7 +39,7 @@ export default function ResumeBuilder() {
     if (!info.fullName) return toast.error('Please enter your full name');
     setSaving(true);
     try {
-      await axios.post('/api/resume/create', {
+      await api.post('/api/resume/create', {
         personalInfo: info, experience, education,
         skills: skills.split(',').map(s => s.trim()).filter(Boolean),
         projects, certifications, template,

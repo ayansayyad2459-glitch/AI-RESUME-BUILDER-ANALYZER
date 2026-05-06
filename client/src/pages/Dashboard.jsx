@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
+import api from '../api/axios';
 import { toast } from 'react-toastify';
 import { FileSearch, FilePlus, Briefcase, Trash2, ExternalLink } from 'lucide-react';
 
@@ -17,7 +17,7 @@ export default function Dashboard() {
 
   const fetchResumes = async () => {
     try {
-      const { data } = await axios.get('/api/resume');
+      const { data } = await api.get('/api/resume');
       setResumes(data);
     } catch (err) {
       toast.error('Failed to load resumes');
@@ -28,7 +28,7 @@ export default function Dashboard() {
   const deleteResume = async (id) => {
     if (!window.confirm('Delete this resume?')) return;
     try {
-      await axios.delete(`/api/resume/${id}`);
+      await api.delete(`/api/resume/${id}`);
       setResumes(resumes.filter(r => r._id !== id));
       toast.success('Resume deleted');
     } catch (err) {

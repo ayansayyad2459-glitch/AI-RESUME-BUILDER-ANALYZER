@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/axios';
 import { toast } from 'react-toastify';
 import { Upload, FileText, Zap, Target, AlertTriangle, Lightbulb, Award, ArrowRight } from 'lucide-react';
 
@@ -29,7 +29,7 @@ export default function ResumeAnalyzer() {
     try {
       const formData = new FormData();
       formData.append('resume', file);
-      const { data } = await axios.post('/api/resume/analyze', formData, {
+      const { data } = await api.post('/api/resume/analyze', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setResult(data);
