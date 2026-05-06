@@ -13,7 +13,8 @@ connectDB();
 // Security middleware
 app.use(helmet());
 const allowedOrigins = [
-  process.env.CLIENT_URL || 'http://localhost:5173',
+  process.env.CLIENT_URL,
+  'https://ai-resume-builder-eukeqkyun-ayansayyad2459-glitchs-projects.vercel.app',
   'http://localhost:5173',
 ].filter(Boolean);
 app.use(cors({
